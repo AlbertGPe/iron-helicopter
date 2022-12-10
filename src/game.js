@@ -8,13 +8,36 @@ class Game {
     this.helicopter = new Helicopter(ctx)
     this.obstacles = []
   }
-
+  /*reparticion del trabajo:
+  -Leando : todo
+  -los demas: apoyamos */
   start() {
     // TODO: loop. clear, draw, move, addObstacle, checkCollisions, clearObstacles
+    this.intervalId = setInterval(() => {
+      this.clear()
+      this.draw()
+      this.checkCollisions()
+      this.move()
+      this.addObstacle() 
+      this.clearObstacles();
+      this.onKeyEvent()
+
+      if(this.helicopter.isFloor()){
+        this.helicopter.y = this.ctx.canvas.height - this.helicopter.h
+        this.helicopter.img.src = "src/img/fire.png"
+        this.clear()
+        this.draw()
+        this.gameOver()
+        
+      }
+      
+  }, 1000 / 60)
+
   }
 
   clearObstacles() {
     // TODO: filter only visible obstacles (call o.isVisible())
+    this.obstacles = this.obstacles.filter(o => o.isVisible())
   }
 
   addObstacle() {
@@ -26,11 +49,14 @@ class Game {
   }
 
   draw() {
-    // TODO: draw everything
+    this.bg.draw()
+    this.helicopter.draw()
+    //this.obstacles.forEach(o => o.draw())*/
   }
 
   move() {
-    // TODO: move everything
+    this.bg.move()
+    this.helicopter.move()
   }
 
   checkCollisions() {
@@ -39,7 +65,7 @@ class Game {
   }
 
   onKeyEvent(event) {
-    // TODO
+    this.helicopter.onKeyEvent(event)
   }
 
   gameOver() {

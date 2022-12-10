@@ -1,4 +1,4 @@
-UP = 38
-RIGHT = 39
-LEFT = 37
+UP = 87
+RIGHT = 68
+LEFT = 65
 SPACE = 32
